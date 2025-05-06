@@ -150,6 +150,19 @@ app.get("/employees_full_details", async (req, res) => {
   }
 });
 
+
+app.get("/jobs", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "select * from jobs;"
+    );
+    if (!result) return res.status(401).json({ msg: "incorrect query" });
+    return res.status(200).json({ data: result.rows });
+  } catch (err) {
+    res.status(500).json({ Error: err.message });
+  }
+});
+
 app.get("/countries_in_region1", async (req, res) => {
   try {
     const result = await pool.query(
